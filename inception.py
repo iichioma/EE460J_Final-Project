@@ -444,18 +444,22 @@ class Inception:
 
         # The index is sorted lowest-to-highest values. Take the last k.
         top_k = idx[-k:]
-
+        
+        scores = []
+        names = []
         # Iterate the top-k classes in reversed order (i.e. highest first).
         for cls in reversed(top_k):
             # Lookup the class-name.
             name = self.name_lookup.cls_to_name(cls=cls, only_first_name=only_first_name)
-
+            names.append(name)
             # Predicted score (or probability) for this class.
             score = pred[cls]
+            scores.append(score)
 
             # Print the score and class-name.
-            print("{0:>6.2%} : {1}".format(score, name))
-
+            # print("{0:>6.2%} : {1}".format(score, name))
+        return names, scores
+        
     def transfer_values(self, image_path=None, image=None):
         """
         Calculate the transfer-values for the given image.
